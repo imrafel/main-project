@@ -10,15 +10,22 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
-                            <div class="col">
-                                <a class="btn btn-success" href="{{ url('/articulo')}}" >Inventario</a>
-                            </div>
-                            <div class="col">
-                                <a class="btn btn-primary" href="{{ url('/user') }}" >Usuarios</a>
-                            </div>
-                            <div class="col">
-                                <a class="btn btn-warning" href="{{ url('/prestamo') }}" >Prestamos</a>
-                            </div>
+
+                            @if (auth()->user()->role  == 'admin')
+                                <div class="col">
+                                    <a class="btn btn-success" href="{{ url('/articulo')}}" >Inventario</a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-primary" href="{{ url('/user') }}" >Usuarios</a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-warning" href="{{ url('/prestamo') }}" >Prestamos</a>
+                                </div>
+                            @else
+                                <div class="col">
+                                    <a class="btn btn-warning" href="{{ url('/prestamo') }}" >Prestamos</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

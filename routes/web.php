@@ -28,7 +28,7 @@ Route::get('/', function () {
 // Route::get('/articulo/create', [ArticuloController::class, 'create']);
 
 //Ruta a todo el controller de Articulo, con verificacion al login
-Route::resource('articulo', ArticuloController::class)->middleware('auth');
+Route::resource('articulo', ArticuloController::class)->middleware('auth', 'role');
 
 //Ruta a todo el controller de Prestamo, con verificacion al login
 Route::resource('prestamo', PrestamoController::class)->middleware('auth');
@@ -45,4 +45,4 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-Route::resource('user', UserController::class)->middleware('auth');
+Route::resource('user', UserController::class)->middleware('auth', 'role');
