@@ -16,7 +16,18 @@ class CreatePrestamosTable extends Migration
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('area');
+            $table->date('fecha_solicitud');
+            $table->date('fecha_practica');
+            $table->string('nombreCompleto');
+            $table->string('carne')->nullable();
+            $table->string('jornada');
+            $table->string('carrera');
+            $table->string('grado');
+            $table->string('programa');
+            $table->string('seccion');
+            $table->tinyInteger('gerencia')->nullable();
+            $table->tinyInteger('bodega')->nullable();
+            $table->tinyInteger('compra')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

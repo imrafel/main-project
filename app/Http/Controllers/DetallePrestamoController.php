@@ -25,6 +25,8 @@ class DetallePrestamoController extends Controller
     public function create()
     {
         //
+        
+
     }
 
     /**
@@ -36,6 +38,7 @@ class DetallePrestamoController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**

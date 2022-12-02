@@ -35,6 +35,7 @@
         <option selected value="">--Select--</option>
         <option value="admin">Admin</option>
         <option value="user">User</option>
+        <option value="secretario">Secretario</option>
         <option value="bodega">Bodega</option>
     </select>
 </div>

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Prestamo;
 use App\Models\User;
+use App\Models\detallePrestamo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PrestamoController extends Controller
 {
@@ -15,9 +18,16 @@ class PrestamoController extends Controller
      */
     public function index()
     {
+        $user = auth()->user()['role'];
         //
-        $prestamos=Prestamo::paginate(8);
-        return view('prestamo.index', compact('prestamos'));
+        if ($user == 'secretario' || 'admin') {
+            $prestamos = Prestamo::paginate(8);
+        } else {
+            $id = auth()->id();
+            $prestamos = Prestamo::where('user_id', $id)->get();
+        }
+
+        return view('prestamo.index', compact('prestamos', 'user'));
     }
 
     /**
@@ -28,9 +38,9 @@ class PrestamoController extends Controller
     public function create()
     {
         //
-        
-        $users=User::pluck('id', 'name');
-        return view('prestamo.create', compact('users'));
+        $hoy = date("m-d-y");
+
+        return view('prestamo.create', compact('hoy'));
     }
 
     /**
@@ -42,10 +52,62 @@ class PrestamoController extends Controller
     public function store(Request $request)
     {
         //
+        $user = Auth::id();
         $datosPrestamo = $request->except('_token');
-        Prestamo::insert($datosPrestamo);
-        return redirect('/prestamo')->with('mensaje', 'Prestamo agregado correctamente');
 
+        $fecha = $datosPrestamo['fecha_practica'];
+
+        $fecha = date("Y-m-d");
+
+        // dd($fecha);
+
+        $cantidades = $datosPrestamo['cantidad'];
+        $herramientas = $datosPrestamo['herramientas'];
+        $descripciones = $datosPrestamo['descripcion'];
+
+        $prestamo = Prestamo::create([
+            'user_id' => $user,
+            'fecha_solicitud' => $datosPrestamo['fecha_solicitud'],
+            'fecha_practica' => $fecha,
+            'nombreCompleto' => $datosPrestamo['nombreCompleto'],
+            'carne' => $datosPrestamo['carne'],
+            'jornada' => $datosPrestamo['jornada'],
+            'carrera' => $datosPrestamo['carrera'],
+            'grado' => $datosPrestamo['grado'],
+            'programa' => $datosPrestamo['programa'],
+            'seccion' => $datosPrestamo['seccion']
+        ]);
+        $prestamo->save();
+
+        $ultimo = Prestamo::latest('id')->first()->id;
+
+
+        for ($i = 0, $cuantos = count($cantidades); $i < $cuantos; $i++) {
+            $detallePrestamo = detallePrestamo::create([
+                'prestamo_id' => $ultimo,
+                'cantidad' => $cantidades[$i],
+                'herramienta' => $herramientas[$i],
+                'descripcion' => $descripciones[$i]
+            ]);
+            $detallePrestamo->save();
+        }
+
+
+
+
+        // return response()->json($datosPrestamo);
+        return redirect('/prestamo');
+    }
+
+    public function descargar($id)
+    {
+        $prestamo = Prestamo::findOrFail($id);
+
+        $detalles = detallePrestamo::where('prestamo_id', $id)->get();
+
+        // dd($detalles);
+
+        return view('prestamo.descargar', compact('prestamo', 'detalles'));
     }
 
     /**
@@ -54,11 +116,18 @@ class PrestamoController extends Controller
      * @param  \App\Models\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function show(Prestamo $prestamo)
+    public function show($id)
     {
         //
+        $user = auth()->user()['role'];
 
+        $prestamo = Prestamo::findOrFail($id);
 
+        $detalles = detallePrestamo::where('prestamo_id', $id)->get();
+
+        // dd($detalles);
+
+        return view('prestamo.show', compact('prestamo', 'detalles', 'user'));
     }
 
     /**
@@ -79,9 +148,27 @@ class PrestamoController extends Controller
      * @param  \App\Models\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Prestamo $prestamo)
+    public function update(Request $request, $id)
     {
         //
+        $user = auth()->user()['role'];
+
+        // $prestamo=Prestamo::findOrFail($id);
+
+
+        $prestamo = Prestamo::find($id);
+        if ($user == 'admin') {
+            $prestamo->gerencia = 1;
+            $prestamo->save();
+        } else if ($user == 'bodega') {
+            $prestamo->bodega = 1;
+            $prestamo->save();
+        } else if ($user == 'secretario') {
+            $prestamo->compra = 1;
+            $prestamo->save();
+        }
+
+        return redirect('/prestamo');
     }
 
     /**

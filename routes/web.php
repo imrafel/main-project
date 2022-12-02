@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticuloController;
+use App\Http\Controllers\DetallePrestamoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PrestamoController;
 
@@ -20,6 +21,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/prestamo/descargar', function (){
+    return view('prestamo.descargar');
+});
+
 
 // Route::get('/articulo', function() {
 //     return view('articulo.index');
@@ -32,6 +37,8 @@ Route::resource('articulo', ArticuloController::class)->middleware('auth', 'role
 
 //Ruta a todo el controller de Prestamo, con verificacion al login
 Route::resource('prestamo', PrestamoController::class)->middleware('auth');
+
+Route::resource('detalle_prestamo', DetallePrestamoController::class)->middleware('auth');
 
 //Quitamos del login, las opciones de registrar usuario y cambiar la contrase;a
 

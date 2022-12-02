@@ -24,6 +24,7 @@
                 <th scope="col">#</th>
                 <th scope="col">name</th>
                 <th scope="col">email</th>
+                <th scope="col">rol</th>
                 <th scope="col">options</th>
             </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>{{ $dato->id }}</td>
                     <td>{{ $dato->name }}</td>
                     <td>{{ $dato->email }}</td>
+                    <td>{{ $dato->role }}</td>
                     <td>
                         <form action="{{ url('/user/'. $dato->id) }}" method="POST">
                             @csrf

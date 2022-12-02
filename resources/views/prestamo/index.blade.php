@@ -18,7 +18,10 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Usuario prestado</th>
-                    <th scope="col">Area</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Fecha de Solicitud</th>
+                    <th scope="col">Fecha de Practica</th>
+                    <th scope="col">Programa</th>
                     <th scope="col">Options</th>
                 </tr>
             </thead>
@@ -26,16 +29,19 @@
                 @foreach ($prestamos as $dato)
                     <tr>
                         <td>{{ $dato->id }}</td>
-                        <td>{{ $dato->user_id }}</td>
-                        <td>{{ $dato->area }}</td>
+                        <td>{{ $dato->user->name }}</td>
+                        <td>{{ $dato->nombreCompleto }}</td>
+                        <td>{{ $dato->fecha_solicitud }}</td>
+                        <td>{{ $dato->fecha_practica }}</td>
+                        <td>{{ $dato->programa }}</td>
                         <td>
                             <form action="{{ url('/prestamo/' . $dato->id) }}" method="POST">
                                 @csrf
                                 {{ method_field('DELETE') }}
                                 <input type="submit" value="Delete" class="btn btn-danger"
                                     onclick="return confirm('Seguro quieres eliminar?')" />
-                                {{-- <a class="btn btn-warning" href="{{ url('/articulo/' . $dato->id . '/edit') }}">Edit</a>
-                                <a class="btn btn-primary" href="{{ url('/articulo/' . $dato->id) }}">Detail</a> --}}
+                                    <a class="btn btn-primary" href="{{ url('/prestamo/' . $dato->id) }}">Detalle</a>
+                                    <a class="btn btn-warning" href="{{ url('/prestamo/' . $dato->id) }}">Descargar</a>
                             </form>
 
                         </td>
@@ -43,9 +49,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{-- <div class="row" >
-            {{ $articulos->links() }}
-        </div> --}}
     </div>
 </div>
 @endsection
