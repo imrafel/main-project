@@ -8,22 +8,16 @@
                 <div class="col-md-6">
                     <label for="nombreArticulo" class="form-label">Nombre Articulo</label>
                     <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo"
-                        placeholder="Nombre Articulo"
+                        placeholder="Nombre Articulo" readonly
                         value="{{ isset($articulo->nombreArticulo) ? $articulo->nombreArticulo : old('nombreArticulo') }}">
                     <label for="tipoArticulo" class="form-label">Tipo Articulo</label>
                     <input type="text" class="form-control" name="tipoArticulo" id="tipoArticulo"
-                        placeholder="Tipo Articulo"
+                        placeholder="Tipo Articulo" readonly
                         value="{{ isset($articulo->tipoArticulo) ? $articulo->tipoArticulo : old('tipoArticulo') }}">
-                    <label for="codigoArticulo" class="form-label">Disponible</label>
-                    <select class="form-select" aria-label="Default select example" name="disponible">
-                        <option selected> {{ isset($articulo->disponible) ? $articulo->disponible : old('disponible') }}
-                        </option>
-                        <option value="SI">Si</option>
-                        <option value="NO">No</option>
-                    </select>
+
                     <label for="codigoArticulo" class="form-label">Codigo Articulo</label>
                     <input type="text" class="form-control" name="codigoArticulo" id="tipoArticulo"
-                        placeholder="Codigo Articulo"
+                        placeholder="Codigo Articulo" readonly
                         value="{{ isset($articulo->codigoArticulo) ? $articulo->codigoArticulo : old('codigoArticulo') }}">
                 </div>
                 <div class="col-md-6">

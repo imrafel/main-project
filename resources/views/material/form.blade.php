@@ -13,6 +13,11 @@
     <tr height="30">
         <div class="row">
             <div class="col">
+                <label for="">Nombre Completo</label>
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name"
+                    name="nombreCompleto" value="{{ $user }}" readonly> 
+            </div>
+            <div class="col">
                 <label for="">Fecha de solicitud</label>
                 <input type="text" class="form-control" placeholder="First name" aria-label="First name"
                     name="fecha_solicitud" value="{{ $hoy }}" readonly>
@@ -24,37 +29,19 @@
             </div>
         </div>
     </tr>
-    <tr height="30">
-        <div class="row">
-            <div class="col">
-                <label for="">Nombre Completo</label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name"
-                    value="{{ $user }}" name="nombreCompleto" readonly>
-            </div>
-            <div class="col">
-                <label for="">Carne</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
-                    name="carne">
-            </div>
-        </div>
-    </tr>
     <tr height="50">
         <div class="row">
-            <div class="col">
-                <label for="autoSizingSelect">Jornada</label>
-                <select class="form-select" id="autoSizingSelect" name="jornada">
-                    <option selected>Escoger...</option>
-                    <option value="Matutina">Matutina</option>
-                    <option value="Vespertina">Vespertina</option>
-                    <option value="Ambas">Ambas</option>
-                </select>
-            </div>
             <div class="col">
                 <label for="">Carrera</label>
                 <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
                     name="carrera">
             </div>
-            <div class="col-auto">
+            <div class="col">
+                <label for="">Programa</label>
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
+                    name="programa">
+            </div>
+            <div class="col">
                 <label for="autoSizingSelect">Grado</label>
                 <select class="form-select" id="autoSizingSelect" name="grado">
                     <option selected>Escoger...</option>
@@ -71,50 +58,44 @@
     <tr height="50">
         <div class="row">
             <div class="col">
-                <label for="autoSizingSelect">Programa</label>
-                <select class="form-select" id="autoSizingSelect" name="programa">
+                <label for="autoSizingSelect">Jornada</label>
+                <select class="form-select" id="autoSizingSelect" name="jornada">
                     <option selected>Escoger...</option>
-                    <option value="ETS">ETS</option>
-                    <option value="CET">CET</option>
-                    <option value="TICS">TICS</option>
+                    <option value="Matutina">Matutina</option>
+                    <option value="Vespertina">Vespertina</option>
+                    <option value="Ambas">Ambas</option>
                 </select>
             </div>
             <div class="col">
-                <label for="">Otros</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-            </div>
-            <div class="col-auto">
-                <label>Seccion</label>
-                <select class="form-select form-select-md mb-3" name="seccion">
+                <label for="">practica o proyecto</label>
+                <select class="form-select" id="autoSizingSelect" name="practica">
                     <option selected>Escoger...</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
+                    <option value="Practica">Practica</option>
+                    <option value="Proyecto">Proyecto</option>
                 </select>
             </div>
         </div>
     </tr>
-    
-    {{-- <div class="row g-3" id="inputFormRow">
-        <div class="col">
-            <label for="">Herramientas </label>
-            <input type="text" class="form-control" placeholder="Herramienta" aria-label="Last name"
-                name="herramientas[]">
+    <tr height="50">
+        <div class="row">
+            <div class="col">
+                <br>
+                <p>MATERIAL Y EQUIPO QUE SE SOLICITA PARA LA PRÓXIMA SEMANA DE CLASE DE ACUERDO</p>
+                <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="tipo" value="Anual"> Anual
+                &nbsp;&nbsp;
+                <input class="form-check-input" type="checkbox"  id="flexCheckDefault" name="tipo" value="Modulo" > Modulo
+            </div>
+
         </div>
+    </tr>
+    <tr>
         <div class="col">
-            <label for="">Descripcion</label>
-            <input type="text" class="form-control" placeholder="Descripcion" aria-label="Last name"
-                name="descripcion[]">
-        </div>
-        <div class="col-auto">
             <label for="">Cantidad</label>
-            <input type="number" class="form-control" placeholder="Cantidad" aria-label="First name"
-                name="cantidad[]">
         </div>
-    </div> --}}
+        <div class="col">
+            <label for="">Herramienta</label>
+        </div>
+    </tr>
     <tr>
         <form id="detalle_prestamo_form" class="row g-3" action="{{ url('/detalle_prestamo') }}" method="POST">
             <div id="newRow">
@@ -130,7 +111,7 @@
     </tr>
     <div class="col-12">
         <button type="submit" class="btn btn-primary" value="Enviar">Enviar</button>
-        <a class="btn btn-danger" href="{{ url('/prestamo') }}">Cancelar</a>
+        <a class="btn btn-danger" href="{{ url('/material') }}">Cancelar</a>
     </div>
 </table>
 
@@ -147,17 +128,13 @@
 
         html += '<p>'
         html += '<div class="row g-3" id="inputFormRow">'
-        html += '<div class="col">'
-        html +=
-            '<input type="text" class="form-control" placeholder="Herramienta" aria-label="Last name" name="herramientas[]">'
-        html += '</div>'
-        html += '<div class="col">'
-        html +=
-            '<input type="text" class="form-control" placeholder="Descripcion" aria-label="Last name" name="descripcion[]" >'
-        html += '</div>'
         html += '<div class="col-auto">'
         html +=
             '<input type="number" class="form-control" placeholder="Cantidad" aria-label="First name" name="cantidad[]" >'
+        html += '</div>'
+        html += '<div class="col">'
+        html +=
+            '<input type="text" class="form-control" placeholder="Material y equipo" aria-label="Last name" name="descripcion[]">'
         html += '</div>'
         html += '<div class="col-auto">'
         html += '<input type="button" class="btn btn-danger" id="removeRow" value="Eliminar" >'
@@ -177,5 +154,4 @@
         document.prestamo_form.submit();
         document.detalle_prestamo_form.submit();
     }
-
 </script>

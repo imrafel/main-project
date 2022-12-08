@@ -8,31 +8,47 @@
         @endforeach
 @endif
 
-<div class="col-md-6">
+<div class="col-md-4">
     <label for="nombreArticulo" class="form-label">Nombre Articulo</label>
     <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo" placeholder="Nombre Articulo"
         value="{{ isset($articulo->nombreArticulo)?$articulo->nombreArticulo:old('nombreArticulo') }}"
     >
 </div>
-<div class="col-md-6">
-    <label for="tipoArticulo" class="form-label">Tipo Articulo</label>
-    <input type="text" class="form-control" name="tipoArticulo" id="tipoArticulo" placeholder="Tipo Articulo"
-        value="{{ isset($articulo->tipoArticulo)?$articulo->tipoArticulo:old('tipoArticulo') }}">
-</div>
-<div class="col-6">
-    <label for="codigoArticulo" class="form-label">Codigo Articulo</label>
-    <input type="text" class="form-control" name="codigoArticulo"  id="tipoArticulo" placeholder="Codigo Articulo"
-        value="{{ isset($articulo->codigoArticulo)?$articulo->codigoArticulo:old('codigoArticulo') }}">
-</div>
-<div class="col-6" > 
-    <label for="codigoArticulo" class="form-label">Disponible</label>  
-    <select class="form-select" aria-label="Default select example" name="disponible" >
-        <option selected> {{ isset($articulo->disponible)?$articulo->disponible:old('disponible') }}</option>
-        <option value="SI">Si</option>
-        <option value="NO">No</option>
+<div class="col-md-4">
+    <label for="tipoArticulo" class="form-label">Clase articulo</label>
+    <select class="form-select" aria-label="Default select example" name="claseArticulo" >
+        <option selected> {{ isset($articulo->claseArticulo)?$articulo->claseArticulo:old('claseArticulo') }}</option>
+        <option value="Herramienta">Herramienta</option>
+        <option value="Equipo">Equipo</option>
     </select>
 </div>
 <div class="col-md-4">
+    <label for="codigoArticulo" class="form-label">Codigo Articulo</label>
+    <input type="text" class="form-control" name="codigoArticulo"  id="codigoArticulo" placeholder="Eje. 012DES"
+        value="{{ isset($articulo->codigoArticulo)?$articulo->codigoArticulo:old('codigoArticulo') }}">
+</div>
+<div class="col-4">
+    <label for="herramienta" class="form-label">Herramienta o Equipo</label>
+    <input type="text" class="form-control" name="herramienta" id="herramienta" placeholder="Eje. Desarmador - Martillo - Alicate"
+        value="{{ isset($articulo->herramienta)?$articulo->herramienta:old('herramienta') }}">
+</div>
+<div class="col-4">
+    <label for="marca" class="form-label">Marca</label>
+    <input type="text" class="form-control" name="marca" id="marca" placeholder="Stanley"
+        value="{{ isset($articulo->marca)?$articulo->marca:old('marca') }}">
+</div>
+<div class="col-4">
+    <label for="tipoArticulo" class="form-label">Tipo Articulo</label>
+    <input type="text" class="form-control" name="tipoArticulo" id="tipoArticulo" placeholder="Eje. Plano/Cruz, Electrico/Analogico"
+        value="{{ isset($articulo->tipoArticulo)?$articulo->tipoArticulo:old('tipoArticulo') }}">
+</div>
+
+<div class="col-auto">
+    <label for="codigoArticulo" class="form-label">Cantidad</label>
+    <input type="cantidad" class="form-control" name="cantidad"  id="cantidad" placeholder="Eje. 15"
+        value="{{ isset($articulo->cantidad)?$articulo->cantidad:old('cantidad') }}">
+</div>
+<div class="col-4">
     <label for="imagen" class="form-label">Imagen</label>
     <input type="file" name="imagen" class="form-control" id="imagen"  >
     <br>

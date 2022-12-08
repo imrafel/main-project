@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Prestamo;
 use App\Models\User;
+use App\Models\Articulo;
 use App\Models\detallePrestamo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,15 @@ class PrestamoController extends Controller
     {
         $user = auth()->user()['role'];
         //
-        if ($user == 'secretario' || 'admin') {
+        if ($user == 'admin' || $user == 'secretario' ) {
             $prestamos = Prestamo::paginate(8);
         } else {
             $id = auth()->id();
+            
             $prestamos = Prestamo::where('user_id', $id)->get();
         }
+
+        
 
         return view('prestamo.index', compact('prestamos', 'user'));
     }
@@ -39,8 +43,11 @@ class PrestamoController extends Controller
     {
         //
         $hoy = date("m-d-y");
+        $user = auth()->user()['name'];
+        $articulos = Articulo::all();
 
-        return view('prestamo.create', compact('hoy'));
+
+        return view('prestamo.create', compact('hoy', 'user', 'articulos'));
     }
 
     /**

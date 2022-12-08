@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticulosTable extends Migration
+class CreateDetalleMaterialYEquiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateArticulosTable extends Migration
      */
     public function up()
     {
-        Schema::create('articulos', function (Blueprint $table) {
+        Schema::create('detalle_material_y_equipos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreArticulo');
-            $table->string('claseArticulo');
-            $table->string('herramienta');
-            $table->string('marca');
-            $table->string('tipoArticulo');
-            $table->string('codigoArticulo');
+            $table->bigInteger('material_id')->unsigned();
             $table->integer('cantidad');
-            $table->string('imagen');
-
+            $table->string('descripcion');
             $table->timestamps();
+
+            $table->foreign('material_id')->references('id')->on('material_y_equipos')->onDelete('cascade');
         });
     }
 
@@ -35,6 +31,6 @@ class CreateArticulosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articulos');
+        Schema::dropIfExists('detalle_material_y_equipos');
     }
 }

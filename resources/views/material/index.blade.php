@@ -4,10 +4,10 @@
 
 <div class="container">
 
-    <h3>Vales de Prestamos de heramientas</h3>
+    <h3>Solicitudes de Material y equipo</h3>
     <div class="row">
         <div class="col">
-            <a class="btn btn-success" href="{{ url('/prestamo/create') }}">Nuevo</a>
+            <a class="btn btn-success" href="{{ url('/material/create') }}">Nuevo</a>
         </div>
         <div class="col col-lg-2">
             <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo" placeholder="Buscar">
@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($prestamos as $dato)
+                @foreach ($solicitudes as $dato)
                     <tr>
                         <td>{{ $dato->id }}</td>
                         <td>{{ $dato->user->name }}</td>
@@ -36,15 +36,15 @@
                         <td>{{ $dato->fecha_practica }}</td>
                         <td>{{ $dato->programa }}</td>
                         <td>
-                            <form action="{{ url('/prestamo/' . $dato->id) }}" method="POST">
+                            <form action="{{ url('/material/' . $dato->id) }}" method="POST">
                                 @csrf
                                 {{ method_field('DELETE') }}
                                 @if (auth()->user()->role  == 'admin' || 'secre')
                                 <input type="submit" value="Delete" class="btn btn-danger"
                                 onclick="return confirm('Seguro quieres eliminar?')" />
                                 @endif
-                                    <a class="btn btn-primary" href="{{ url('/prestamo/' . $dato->id) }}">Detalle</a>
-                                    <a class="btn btn-warning" href="{{ url('/prestamo/' . $dato->id) }}">Descargar</a>
+                                    <a class="btn btn-primary" href="{{ url('/material/' . $dato->id) }}">Detalle</a>
+                                    <a class="btn btn-warning" href="{{ url('/material/' . $dato->id) }}">Descargar</a>
                             </form>
 
                         </td>

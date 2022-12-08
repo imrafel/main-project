@@ -5,20 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Articulo extends Model
+class detalle_materialYEquipo extends Model
 {
     use HasFactory;
-
-
+ 
     protected $fillable = [
-        'nombreArticulo',
-        'claseArticulo',
-        'herramienta',
-        'marca',
-        'tipoArticulo',
-        'codigoArticulo',
+        'material_id',
         'cantidad',
-        'imagen'
-
+        'descripcion'
     ];
+
 }

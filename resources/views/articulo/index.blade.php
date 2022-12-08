@@ -26,7 +26,7 @@
                         <th scope="col">Nombre Articulo</th>
                         <th scope="col">Tipo Articulo</th>
                         <th scope="col">Codigo Articulo</th>
-                        <th scope="col">Disponible</th>
+                        <th scope="col">Cantidad en Stock</th>
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
@@ -37,7 +37,7 @@
                             <td>{{ $dato->nombreArticulo }}</td>
                             <td>{{ $dato->tipoArticulo }}</td>
                             <td>{{ $dato->codigoArticulo }}</td>
-                            <td>{{ $dato->disponible }}</td>
+                            <td>{{ $dato->cantidad }}</td>
                             <td>
                                 <form action="{{ url('/articulo/' . $dato->id) }}" method="POST">
                                     @csrf

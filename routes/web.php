@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\DetallePrestamoController;
+use App\Http\Controllers\MaterialYEquipoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PrestamoController;
 
@@ -30,7 +31,7 @@ Route::get('/prestamo/descargar', function (){
 //     return view('articulo.index');
 // });
 
-// Route::get('/articulo/create', [ArticuloController::class, 'create']);
+Route::resource('material', MaterialYEquipoController::class)->middleware('auth');
 
 //Ruta a todo el controller de Articulo, con verificacion al login
 Route::resource('articulo', ArticuloController::class)->middleware('auth', 'role');
