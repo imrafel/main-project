@@ -16,6 +16,7 @@ class CreateDetallePrestamosTable extends Migration
         Schema::create('detalle_prestamos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('prestamo_id')->unsigned();
+            $table->bigInteger('articulo_id')->unsigned();
             $table->integer('cantidad');
             $table->string('herramienta');
             $table->string('descripcion');

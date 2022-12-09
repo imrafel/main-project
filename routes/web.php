@@ -22,11 +22,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/prestamo/descargar', function (){
-    return view('prestamo.descargar');
-});
-
-
 // Route::get('/articulo', function() {
 //     return view('articulo.index');
 // });

@@ -21,15 +21,15 @@ class PrestamoController extends Controller
     {
         $user = auth()->user()['role'];
         //
-        if ($user == 'admin' || $user == 'secretario' ) {
+        if ($user == 'admin' || $user == 'secretario') {
             $prestamos = Prestamo::paginate(8);
         } else {
             $id = auth()->id();
-            
+
             $prestamos = Prestamo::where('user_id', $id)->get();
         }
 
-        
+
 
         return view('prestamo.index', compact('prestamos', 'user'));
     }
@@ -58,11 +58,33 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        $campos = [
+            'fecha_solicitud' => 'required|date',
+            'fecha_practica' => 'required|date',
+            'nombreCompleto' => 'required|string|max:100',
+            'jornada' => 'required|string|max:100',
+            'carrera' => 'required|string|max:100',
+            'grado' => 'required|string|max:100',
+            'programa' => 'required|string|max:100',
+            'seccion' => 'required|string|max:100',
+            'cantidad' => 'required',
+            'herramientas' => 'required'
+        ];
+
+        $mensaje = [
+            'required' => 'El campo: :attribute es requerido',
+        ];
+
+        $this->validate($request, $campos, $mensaje);
+
         //
         $user = Auth::id();
         $datosPrestamo = $request->except('_token');
 
         $fecha = $datosPrestamo['fecha_practica'];
+        $resta = 0;
 
         $fecha = date("Y-m-d");
 
@@ -70,7 +92,9 @@ class PrestamoController extends Controller
 
         $cantidades = $datosPrestamo['cantidad'];
         $herramientas = $datosPrestamo['herramientas'];
-        $descripciones = $datosPrestamo['descripcion'];
+        $idents = $datosPrestamo['idents'];
+        // dd($cantidades, $herramientas);
+        // $descripciones = $datosPrestamo['descripcion'];
 
         $prestamo = Prestamo::create([
             'user_id' => $user,
@@ -94,10 +118,22 @@ class PrestamoController extends Controller
                 'prestamo_id' => $ultimo,
                 'cantidad' => $cantidades[$i],
                 'herramienta' => $herramientas[$i],
-                'descripcion' => $descripciones[$i]
+                'descripcion' => 'Herramienta',
+                // 'descripcion' => $descripciones[$i]
             ]);
             $detallePrestamo->save();
+
+            $stock = Articulo::find($idents[$i]);
+            $resta = $stock->cantidad - $cantidades[$i];
+            // dd($resta);
+            Articulo::where('nombreArticulo', '=', $herramientas[$i])
+                ->update(['cantidad' => $resta]);
+            // dd($herramientas[$i]);
+            // $stock->save();
         }
+
+
+
 
 
 

@@ -1,21 +1,50 @@
 <div>
-    <tr>
-    <h5>Buscar Disponibilidad</h5>
-    </tr>
-    <tr>
-        <div class="row g-3" id="inputFormRow">
-            <div class="col-6">
-                <label class="">Herramienta:</label>
-                <select name="articulo" wire:model.lazy="articulo" class="form-select">
-                    <option value=''>Choose a country</option>
-                    @foreach ($articulos as $articulo)
-                        <option value="{{ $articulo->id }}">{{ $articulo->nombreArticulo }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-6">
-                <label class="">Cantidad:</label>
-                <input type="text" class="form-control" name="cantidad" value="{{ $cantidad }}" >
-            </div>
+    <div class="row">
+        <div class="col-5">
+            <select wire:model.lazy="articulo" class="form-select">
+                <option value=''>Escoge una herramienta</option>
+                @foreach ($articulos as $articulo)
+                <option value="{{ $articulo->id }}">{{ $articulo->nombreArticulo }}</option>
+                @endforeach
+            </select>
         </div>
+        <div class="col-5">
+            <select class="form-select" wire:model.lazy="cantidad">
+                @foreach ($cantidadList as $key => $item)
+                <option value="{{ $item }}">{{ $item }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary" wire:click.prevent="add()">Agregar</button>
+        </div>
+        <br><br><br>
+        <tr>
+            <div class="col-2">
+                @foreach ($idents as $id)
+                <input name="idents[]" type="text" class="form-control" value="{{ $id }}" readonly>
+                @endforeach
+            </div>
+        </tr>
+        <tr>
+            <div class="col-4">
+                @foreach ($herramientas as $herramienta)
+                <input name="herramientas[]" type="text" class="form-control" value="{{ $herramienta }}" readonly>
+                @endforeach
+            </div>
+        </tr>
+        <tr>
+            <div class="col-4">
+                @foreach ($cantidades as $cantidad)
+                <input name="cantidad[]" class="form-control" type="text"  value="{{ isset($cantidad)?$cantidad:old('cantidad') }}" readonly>
+                @endforeach
+            </div>
+            <div class="col-1" >
+                @foreach ($idents as $key => $id)
+                    <button type="submit" class="btn btn-danger" wire:click.prevent="eliminar({{ $key }})">Eliminar</button>
+                @endforeach
+            </div>
+        </tr>
+
+    </div>
 </div>
