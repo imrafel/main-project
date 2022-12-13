@@ -1,6 +1,6 @@
 <?php
 header("Content-type: application/vnd.ms-excel; name='excel'; charset=utf-8");
-header('Content-Disposition: attachment; filename=detalle_solicitud'. $prestamo->nombreCompleto .'.xls');
+header('Content-Disposition: attachment; filename=detalle_solicitud'. $prestamo->nombreCompleto . $prestamo->carrera . $prestamo->jornada'.xls');
 header('Pragma: no-cache');
 header('Expires: 0');
 header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

@@ -11,9 +11,9 @@
     <div class="container">
 
         <div class="row">
-            <div class="col">
+            {{-- <div class="col">
                 <a class="btn btn-success" href="{{ url('/articulo/create') }}">Nuevo</a>
-            </div>
+            </div> --}}
             <div class="col col-lg-2">
                 <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo" placeholder="Buscar">
             </div>
@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($articulos as $dato)
+                    @foreach ($disponibles as $dato)
                         <tr>
                             <td>{{ $dato->id }}</td>
                             <td>{{ $dato->nombreArticulo }}</td>
@@ -41,13 +41,13 @@
                             <td>{{ $dato->codigoArticulo }}</td>
                             <td>{{ $dato->cantidad }}</td>
                             <td>
-                                <form action="{{ url('/articulo/' . $dato->id) }}" method="POST">
+                                <form action="{{ url('/stock/' . $dato->id) }}" method="POST">
                                     @csrf
                                     {{ method_field('DELETE') }}
                                     <input type="submit" value="Delete" class="btn btn-danger"
                                         onclick="return confirm('Seguro quieres eliminar?')" />
-                                    <a class="btn btn-warning" href="{{ url('/articulo/' . $dato->id . '/edit') }}">Edit</a>
-                                    <a class="btn btn-primary" href="{{ url('/articulo/' . $dato->id) }}">Detail</a>
+                                    <a class="btn btn-warning" href="{{ url('/stock/' . $dato->id . '/edit') }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ url('/stock/' . $dato->id) }}">Detail</a>
                                 </form>
 
                             </td>
@@ -56,7 +56,7 @@
                 </tbody>
             </table>
             <div class="row" >
-                {{ $articulos->links() }}
+                {{ $disponibles->links() }}
             </div>
         </div>
     </div>

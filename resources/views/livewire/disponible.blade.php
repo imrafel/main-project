@@ -20,7 +20,7 @@
         </div>
         <br><br><br>
         <tr>
-            <div class="col-2">
+            <div class="col-auto">
                 @foreach ($idents as $id)
                 <input name="idents[]" type="text" class="form-control" value="{{ $id }}" readonly>
                 @endforeach
@@ -34,7 +34,7 @@
             </div>
         </tr>
         <tr>
-            <div class="col-4">
+            <div class="col-3">
                 @foreach ($cantidades as $cantidad)
                 <input name="cantidad[]" class="form-control" type="text"  value="{{ isset($cantidad)?$cantidad:old('cantidad') }}" readonly>
                 @endforeach

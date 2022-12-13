@@ -13,6 +13,7 @@ class detallePrestamo extends Model
     
     protected $fillable = [
         'prestamo_id',
+        'articulo_id',
         'cantidad',
         'herramienta',
         'descripcion'

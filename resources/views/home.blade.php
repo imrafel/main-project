@@ -16,6 +16,9 @@
                                     <a class="btn btn-success" href="{{ url('/articulo')}}" >Inventario</a>
                                 </div>
                                 <div class="col">
+                                    <a class="btn btn-warning" href="{{ url('/stock') }}"  >Disponibles    </a>
+                                </div>
+                                <div class="col">
                                     <a class="btn btn-primary" href="{{ url('/user') }}" >Usuarios</a>
                                 </div>
                                 <div class="col">
@@ -24,6 +27,7 @@
                                 <div class="col">
                                     <a class="btn btn-warning" href="{{ url('/material') }}"  >Solicitud de Material y Equipo    </a>
                                 </div>
+                                
                             @else
                                 <div class="col">
                                     <a class="btn btn-warning" href="{{ url('/prestamo') }}" >Prestamos de herramienta y equipo</a>

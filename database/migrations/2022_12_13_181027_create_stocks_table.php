@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetallePrestamosTable extends Migration
+class CreateStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateDetallePrestamosTable extends Migration
      */
     public function up()
     {
-        Schema::create('detalle_prestamos', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('prestamo_id')->unsigned();
-            $table->bigInteger('articulo_id')->unsigned();
-            $table->integer('cantidad');
+            $table->string('nombreArticulo');
+            $table->string('claseArticulo');
             $table->string('herramienta');
+            $table->string('marca');
+            $table->string('tipoArticulo');
+            $table->string('codigoArticulo');
+            $table->integer('cantidad');
+            $table->string('imagen');
             $table->timestamps();
-
-            $table->foreign('prestamo_id')->references('id')->on('prestamos')->onDelete('cascade');
         });
     }
 
@@ -32,6 +34,6 @@ class CreateDetallePrestamosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detalle_prestamos');
+        Schema::dropIfExists('stocks');
     }
 }

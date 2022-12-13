@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Prestamo;
 use App\Models\User;
+use App\Models\Stock;
 use App\Models\Articulo;
 use App\Models\detallePrestamo;
 use Illuminate\Http\Request;
@@ -21,8 +22,8 @@ class PrestamoController extends Controller
     {
         $user = auth()->user()['role'];
         //
-        if ($user == 'admin' || $user == 'secretario') {
-            $prestamos = Prestamo::paginate(8);
+        if ($user == 'admin' || $user == 'secretario' || $user == 'bodega') {
+            $prestamos = Prestamo::all();
         } else {
             $id = auth()->id();
 
@@ -42,7 +43,7 @@ class PrestamoController extends Controller
     public function create()
     {
         //
-        $hoy = date("m-d-y");
+        $hoy = date('Y-m-d');
         $user = auth()->user()['name'];
         $articulos = Articulo::all();
 
@@ -61,8 +62,8 @@ class PrestamoController extends Controller
 
 
         $campos = [
-            'fecha_solicitud' => 'required|date',
-            'fecha_practica' => 'required|date',
+            // 'fecha_solicitud' => 'required|date',
+            // 'fecha_practica' => 'required|date',
             'nombreCompleto' => 'required|string|max:100',
             'jornada' => 'required|string|max:100',
             'carrera' => 'required|string|max:100',
@@ -82,24 +83,21 @@ class PrestamoController extends Controller
         //
         $user = Auth::id();
         $datosPrestamo = $request->except('_token');
-
-        $fecha = $datosPrestamo['fecha_practica'];
         $resta = 0;
 
-        $fecha = date("Y-m-d");
+        // $fechaPractica = date('Y-m-d');
+        // $fechaSolicitud = date('Y-m-d');
 
-        // dd($fecha);
+        // dd($datosPrestamo);
 
         $cantidades = $datosPrestamo['cantidad'];
         $herramientas = $datosPrestamo['herramientas'];
         $idents = $datosPrestamo['idents'];
-        // dd($cantidades, $herramientas);
-        // $descripciones = $datosPrestamo['descripcion'];
 
         $prestamo = Prestamo::create([
             'user_id' => $user,
             'fecha_solicitud' => $datosPrestamo['fecha_solicitud'],
-            'fecha_practica' => $fecha,
+            'fecha_practica' => $datosPrestamo['fecha_practica'],
             'nombreCompleto' => $datosPrestamo['nombreCompleto'],
             'carne' => $datosPrestamo['carne'],
             'jornada' => $datosPrestamo['jornada'],
@@ -116,29 +114,21 @@ class PrestamoController extends Controller
         for ($i = 0, $cuantos = count($cantidades); $i < $cuantos; $i++) {
             $detallePrestamo = detallePrestamo::create([
                 'prestamo_id' => $ultimo,
+                'articulo_id' => $idents[$i],
                 'cantidad' => $cantidades[$i],
                 'herramienta' => $herramientas[$i],
-                'descripcion' => 'Herramienta',
-                // 'descripcion' => $descripciones[$i]
             ]);
             $detallePrestamo->save();
 
-            $stock = Articulo::find($idents[$i]);
+            $stock = Stock::find($idents[$i]);
             $resta = $stock->cantidad - $cantidades[$i];
             // dd($resta);
-            Articulo::where('nombreArticulo', '=', $herramientas[$i])
+            Stock::where('nombreArticulo', '=', $herramientas[$i])
                 ->update(['cantidad' => $resta]);
             // dd($herramientas[$i]);
             // $stock->save();
         }
 
-
-
-
-
-
-
-        // return response()->json($datosPrestamo);
         return redirect('/prestamo');
     }
 
@@ -205,9 +195,6 @@ class PrestamoController extends Controller
             $prestamo->save();
         } else if ($user == 'bodega') {
             $prestamo->bodega = 1;
-            $prestamo->save();
-        } else if ($user == 'secretario') {
-            $prestamo->compra = 1;
             $prestamo->save();
         }
 

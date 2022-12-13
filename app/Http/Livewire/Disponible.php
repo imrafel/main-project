@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Articulo;
+use App\Models\Stock;
 
 class Disponible extends Component
 {
@@ -14,19 +15,16 @@ class Disponible extends Component
     public $value;
     public $cantidad;
     public $ident;
-
     public $cantidadList = [];
-    
     public $herramientas = [];
     public $cantidades = [];
-    public $descripcion = [];
     public $idents = [];
 
     public function mount(){
-        $this->articulos = Articulo::all();
+        $this->articulos = Stock::all();
 
         if($this->articulo !=''){
-            $this->value = Articulo::findOrFail($this->articulo);
+            $this->value = Stock::findOrFail($this->articulo);
         } else {
             $this->value = '';
         }
@@ -35,11 +33,10 @@ class Disponible extends Component
     public function updatedArticulo()
     {        
         if($this->articulo !=''){
-            $this->value = Articulo::findOrFail($this->articulo);
-            // dd($this->value);
+            $this->value = Stock::findOrFail($this->articulo);
             $this->cantidad = $this->value['cantidad'];
             $this->ident = $this->value['id'];
-            // $this->descripcion = $this->value['']
+            $this->descripcion = $this->value['descripcion'];
         } else {
             $this->value = '';
         }
@@ -53,7 +50,6 @@ class Disponible extends Component
     public function add()
     {
         array_push($this->herramientas, $this->value->nombreArticulo);
-        // dd($this->herramientas);
         array_push($this->cantidades, $this->cantidad);
         array_push($this->idents, $this->ident);
         unset($this->cantidadList);
@@ -64,6 +60,7 @@ class Disponible extends Component
     public function eliminar($key)
     {
         unset($this->herramientas[$key], $this->cantidades[$key], $this->idents[$key]);
+        unset($this->cantidadList);
     }
 
 

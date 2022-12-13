@@ -32,14 +32,14 @@
                         <td>{{ $dato->id }}</td>
                         <td>{{ $dato->user->name }}</td>
                         <td>{{ $dato->nombreCompleto }}</td>
-                        <td>{{ $dato->fecha_solicitud }}</td>
-                        <td>{{ $dato->fecha_practica }}</td>
+                        <td>{{ date("d-m-Y", strtotime($dato->fecha_solicitud)) }}</td>
+                        <td>{{ date("d-m-Y", strtotime($dato->fecha_practica)) }}</td>
                         <td>{{ $dato->programa }}</td>
                         <td>
                             <form action="{{ url('/prestamo/' . $dato->id) }}" method="POST">
                                 @csrf
                                 {{ method_field('DELETE') }}
-                                @if (auth()->user()->role  == 'admin' || 'secre')
+                                @if (auth()->user()->role  == 'admin' || auth()->user()->role == 'secre')
                                 <input type="submit" value="Delete" class="btn btn-danger"
                                 onclick="return confirm('Seguro quieres eliminar?')" />
                                 @endif

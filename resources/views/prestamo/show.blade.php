@@ -15,8 +15,8 @@
         <div>
             <table class="table">
                 <tr>
-                    <td><b>Fecha de Solicitud</b> &nbsp; &nbsp; {{ $prestamo->fecha_solicitud }} </td>
-                    <td><b>Fecha de Practica</b> &nbsp;&nbsp;{{ $prestamo->fecha_practica }}</td>
+                    <td><b>Fecha de Solicitud</b> &nbsp; &nbsp; {{ date("d-m-Y", strtotime($prestamo->fecha_solicitud)) }} </td>
+                    <td><b>Fecha de Practica</b> &nbsp;&nbsp;{{ date("d-m-Y", strtotime($prestamo->fecha_practica)) }}</td>
                 </tr>
                 <tr>
                     <td><b>Nombre Completo</b> &nbsp;&nbsp; {{ $prestamo->nombreCompleto }}</td>
@@ -39,7 +39,6 @@
                         <tr>
                             <th scope="col">Cantidad</th>
                             <th scope="col">Herramienta</th>
-                            <th scope="col">Descripcion</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +46,6 @@
                             <tr>
                                 <td>{{ $detalle->cantidad }}</td>
                                 <td>{{ $detalle->herramienta }}</td>
-                                <td>{{ $detalle->descripcion }}</td>
                             </tr>
                         @endforeach
 
@@ -70,21 +68,15 @@
                 @endif
                 <label class="form-check-label" for="inlineCheckbox2">Bodega</label>
             </div>
-            <div class="form-check form-check-inline">
-                @if ( $prestamo->compra == 1)
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" checked  onclick="return false;">
-                @else
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" >
-                @endif
-                <label class="form-check-label" for="inlineCheckbox3">Compra</label>
-            </div>
         </div>
         <br>
+        @if (auth()->user()->role  == 'admin' || auth()->user()->role =='secre' || auth()->user()->role =='bodega' )
         <form action="{{ url('/prestamo/' . $prestamo->id ) }}" method="post" enctype="multipart/form-data" >
             @csrf
             {{ method_field('PATCH') }}
             <button type="submit" class="btn btn-success">Aprobar</button>
         </form>
+        @endif
     </div>
 @endsection
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\DetallePrestamoController;
 use App\Http\Controllers\MaterialYEquipoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PrestamoController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,11 @@ Route::get('/', function () {
 //     return view('articulo.index');
 // });
 
+//Ruta para el controller de Material y equipo con verificacoin al login
 Route::resource('material', MaterialYEquipoController::class)->middleware('auth');
+
+//Ruta para el controller de Stocks con verificaion al login
+Route::resource('stock', StockController::class)->middleware('auth');
 
 //Ruta a todo el controller de Articulo, con verificacion al login
 Route::resource('articulo', ArticuloController::class)->middleware('auth', 'role');

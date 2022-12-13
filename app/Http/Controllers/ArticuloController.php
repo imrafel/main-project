@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Articulo;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,27 +61,32 @@ class ArticuloController extends Controller
         $this->validate($request, $campos, $mensaje);
 
         $datosArticulo =  request()->except('_token');
+
+        // dd($datosArticulo);
         $datosArticulo['imagen'] = $request->file('imagen')->store('uploads', 'public');
+        $imagen = $request->file('imagen');
 
-        // for ($i = 0, $cuantos = $datosArticulo['cantidad']; $i < $cuantos; $i++) {
-        //     $articulo = new Articulo;
-        //     $articulo->nombreArticulo = $datosArticulo['nombreArticulo'];
-        //     $articulo->tipoArticulo = $datosArticulo['tipoArticulo'];
-        //     $articulo->cantidad = $datosArticulo['cantidad'];
-        //     $articulo->codigoArticulo = $datosArticulo['codigoArticulo'] . $i;
-        //     $articulo->imagen = $imagen->store('uploads', 'public');
-        //     $articulo->save();
-        // }
+        for ($i = 1, $cuantos = $datosArticulo['cantidad']+1; $i < $cuantos; $i++) {
+            $articulo = new Articulo;
+            $articulo->nombreArticulo   = $datosArticulo['nombreArticulo'];
+            $articulo->claseArticulo    = $datosArticulo['claseArticulo'];
+            $articulo->herramienta      = $datosArticulo['herramienta'];
+            $articulo->marca            = $datosArticulo['marca'];
+            $articulo->tipoArticulo     = $datosArticulo['tipoArticulo'];
+            $articulo->cantidad         = $datosArticulo['cantidad'];
+            $articulo->codigoArticulo   = $datosArticulo['codigoArticulo'] . $i;
+            $articulo->imagen   = $imagen->store('uploads', 'public');
+            $articulo->save();
+        }
 
 
-        //Guardado con codigo automatico segun la cantidad de articulos
-
+        // Guardado a la tabla de inventario
 
         // return redirect('/articulo')->with('mensaje', 'Articulo agregado con exito');
 
 
-        //Guardado automatico desde el form
-        Articulo::insert($datosArticulo);
+        //Guardado a la tabla de stock para manipular los vales de prestamo
+        Stock::insert($datosArticulo);
         return redirect('/articulo')->with('mensaje', 'Articulo Agregado con Exito');
 
     }
