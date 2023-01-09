@@ -20,7 +20,11 @@ class ArticuloController extends Controller
         // $datos['articulos']=Articulo::all();
         // return view('articulo.index', $datos);
 
-        $articulos = Articulo::paginate(9);
+        $articulo = request()->get('articulo');
+
+        $articulos = Articulo::where('nombreArticulo','like',"%$articulo%")->get();
+
+        // $articulos = Articulo::paginate(9);
         return view('articulo.index', compact('articulos'));
     }
 
@@ -64,20 +68,20 @@ class ArticuloController extends Controller
 
         // dd($datosArticulo);
         $datosArticulo['imagen'] = $request->file('imagen')->store('uploads', 'public');
-        $imagen = $request->file('imagen');
+        // $imagen = $request->file('imagen');
 
-        for ($i = 1, $cuantos = $datosArticulo['cantidad']+1; $i < $cuantos; $i++) {
-            $articulo = new Articulo;
-            $articulo->nombreArticulo   = $datosArticulo['nombreArticulo'];
-            $articulo->claseArticulo    = $datosArticulo['claseArticulo'];
-            $articulo->herramienta      = $datosArticulo['herramienta'];
-            $articulo->marca            = $datosArticulo['marca'];
-            $articulo->tipoArticulo     = $datosArticulo['tipoArticulo'];
-            $articulo->cantidad         = $datosArticulo['cantidad'];
-            $articulo->codigoArticulo   = $datosArticulo['codigoArticulo'] . $i;
-            $articulo->imagen   = $imagen->store('uploads', 'public');
-            $articulo->save();
-        }
+        // for ($i = 1, $cuantos = $datosArticulo['cantidad']+1; $i < $cuantos; $i++) {
+        //     $articulo = new Articulo;
+        //     $articulo->nombreArticulo   = $datosArticulo['nombreArticulo'];
+        //     $articulo->claseArticulo    = $datosArticulo['claseArticulo'];
+        //     $articulo->herramienta      = $datosArticulo['herramienta'];
+        //     $articulo->marca            = $datosArticulo['marca'];
+        //     $articulo->tipoArticulo     = $datosArticulo['tipoArticulo'];
+        //     $articulo->cantidad         = $datosArticulo['cantidad'];
+        //     $articulo->codigoArticulo   = $datosArticulo['codigoArticulo'] . $i;
+        //     $articulo->imagen   = $imagen->store('uploads', 'public');
+        //     $articulo->save();
+        // }
 
 
         // Guardado a la tabla de inventario
@@ -86,7 +90,7 @@ class ArticuloController extends Controller
 
 
         //Guardado a la tabla de stock para manipular los vales de prestamo
-        Stock::insert($datosArticulo);
+        Articulo::insert($datosArticulo);
         return redirect('/articulo')->with('mensaje', 'Articulo Agregado con Exito');
 
     }

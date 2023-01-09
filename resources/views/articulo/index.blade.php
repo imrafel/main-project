@@ -12,10 +12,15 @@
 
         <div class="row">
             <div class="col">
-                <a class="btn btn-success" href="{{ url('/articulo/create') }}">Nuevo</a>
+                <a class="btn btn-success" href="{{ url('/articulo/create') }}">Agregar Materia</a>
             </div>
             <div class="col col-lg-2">
-                <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo" placeholder="Buscar">
+                <form action="">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="articulo" placeholder="Ex: Martillo">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Buscar</button>
+                      </div>
+                </form>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -49,15 +54,14 @@
                                     <a class="btn btn-warning" href="{{ url('/articulo/' . $dato->id . '/edit') }}">Edit</a>
                                     <a class="btn btn-primary" href="{{ url('/articulo/' . $dato->id) }}">Detail</a>
                                 </form>
-
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="row" >
+            {{-- <div class="row" >
                 {{ $articulos->links() }}
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

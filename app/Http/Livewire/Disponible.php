@@ -21,10 +21,10 @@ class Disponible extends Component
     public $idents = [];
 
     public function mount(){
-        $this->articulos = Stock::all();
+        $this->articulos = Articulo::all();
 
         if($this->articulo !=''){
-            $this->value = Stock::findOrFail($this->articulo);
+            $this->value = Articulo::findOrFail($this->articulo);
         } else {
             $this->value = '';
         }
@@ -33,7 +33,7 @@ class Disponible extends Component
     public function updatedArticulo()
     {        
         if($this->articulo !=''){
-            $this->value = Stock::findOrFail($this->articulo);
+            $this->value = Articulo::findOrFail($this->articulo);
             $this->cantidad = $this->value['cantidad'];
             $this->ident = $this->value['id'];
             $this->descripcion = $this->value['descripcion'];

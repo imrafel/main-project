@@ -15,9 +15,9 @@
                                 <div class="col">
                                     <a class="btn btn-success" href="{{ url('/articulo')}}" >Inventario</a>
                                 </div>
-                                <div class="col">
+                                {{-- <div class="col">
                                     <a class="btn btn-warning" href="{{ url('/stock') }}"  >Disponibles    </a>
-                                </div>
+                                </div> --}}
                                 <div class="col">
                                     <a class="btn btn-primary" href="{{ url('/user') }}" >Usuarios</a>
                                 </div>
