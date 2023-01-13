@@ -14,10 +14,12 @@ class Disponible extends Component
     public $articulo;
     public $value;
     public $cantidad;
+    public $descripcion;
     public $ident;
     public $cantidadList = [];
     public $herramientas = [];
     public $cantidades = [];
+    public $descripciones = [];
     public $idents = [];
 
     public function mount(){
@@ -49,8 +51,9 @@ class Disponible extends Component
 
     public function add()
     {
-        array_push($this->herramientas, $this->value->nombreArticulo);
+        array_push($this->herramientas, $this->value->objeto);
         array_push($this->cantidades, $this->cantidad);
+        array_push($this->descripciones, $this->descripcion);
         array_push($this->idents, $this->ident);
         unset($this->cantidadList);
         $this->cantidadList = array(); 
@@ -59,7 +62,7 @@ class Disponible extends Component
 
     public function eliminar($key)
     {
-        unset($this->herramientas[$key], $this->cantidades[$key], $this->idents[$key]);
+        unset($this->herramientas[$key], $this->cantidades[$key], $this->idents[$key], $this->descripciones[$key]);
         unset($this->cantidadList);
     }
 

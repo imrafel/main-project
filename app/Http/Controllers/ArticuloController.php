@@ -22,7 +22,8 @@ class ArticuloController extends Controller
 
         $articulo = request()->get('articulo');
 
-        $articulos = Articulo::where('nombreArticulo','like',"%$articulo%")->get();
+        $articulos = Articulo::where('objeto','like',"%$articulo%")->get();
+
 
         // $articulos = Articulo::paginate(9);
         return view('articulo.index', compact('articulos'));
@@ -50,46 +51,20 @@ class ArticuloController extends Controller
     {
         //
         $campos = [
-            'nombreArticulo' => 'required|string|max:100',
-            'tipoArticulo' => 'required|string|max:100',
-            'codigoArticulo' => 'required|string|max:100',
-            'cantidad' => 'required|integer|max:100',
-            'imagen' => 'required|max:10000|mimes:jpeg,png,jpg',
+            'codigo' => 'required|string|max:100',
+            'objeto' => 'required|string|max:100',
+            'descripcion' => 'required|string|max:100',
+            'fecha' => 'required|string|max:100',
         ];
 
         $mensaje = [
             'required' => 'El :attribute es requerido',
-            'imagen.required' => 'La imagen es requerida'
         ];
 
         $this->validate($request, $campos, $mensaje);
 
         $datosArticulo =  request()->except('_token');
-
-        // dd($datosArticulo);
-        $datosArticulo['imagen'] = $request->file('imagen')->store('uploads', 'public');
-        // $imagen = $request->file('imagen');
-
-        // for ($i = 1, $cuantos = $datosArticulo['cantidad']+1; $i < $cuantos; $i++) {
-        //     $articulo = new Articulo;
-        //     $articulo->nombreArticulo   = $datosArticulo['nombreArticulo'];
-        //     $articulo->claseArticulo    = $datosArticulo['claseArticulo'];
-        //     $articulo->herramienta      = $datosArticulo['herramienta'];
-        //     $articulo->marca            = $datosArticulo['marca'];
-        //     $articulo->tipoArticulo     = $datosArticulo['tipoArticulo'];
-        //     $articulo->cantidad         = $datosArticulo['cantidad'];
-        //     $articulo->codigoArticulo   = $datosArticulo['codigoArticulo'] . $i;
-        //     $articulo->imagen   = $imagen->store('uploads', 'public');
-        //     $articulo->save();
-        // }
-
-
-        // Guardado a la tabla de inventario
-
-        // return redirect('/articulo')->with('mensaje', 'Articulo agregado con exito');
-
-
-        //Guardado a la tabla de stock para manipular los vales de prestamo
+        
         Articulo::insert($datosArticulo);
         return redirect('/articulo')->with('mensaje', 'Articulo Agregado con Exito');
 
@@ -134,11 +109,6 @@ class ArticuloController extends Controller
         // funcion para guardar datos enviados desde form.edit
         $datosArticulo = request()->except(['_token', '_method']);
 
-        if ($request->hasFile('imagen')) {
-            $articulo = Articulo::findOrFail($id);
-            Storage::delete('public/' . $articulo->imagen);
-            $datosArticulo['imagen'] = $request->file('imagen')->store('uploads', 'public');
-        }
         Articulo::where('id', '=', $id)->update($datosArticulo);
         return redirect('/articulo');
     }
@@ -152,12 +122,8 @@ class ArticuloController extends Controller
     public function destroy($id)
     {
         // elimina un registro
+        Articulo::destroy($id);
 
-        $articulo = Articulo::findOrFail($id);
-
-        if (Storage::delete('public/' . $articulo->imagen)) {
-            Articulo::destroy($id);
-        }
 
         return redirect('/articulo');
     }

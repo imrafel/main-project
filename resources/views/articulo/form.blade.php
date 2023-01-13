@@ -9,52 +9,31 @@
 @endif
 
 <div class="col-md-4">
-    <label for="nombreArticulo" class="form-label">Nombre Articulo</label>
-    <input type="text" class="form-control" name="nombreArticulo" id="nombreArticulo" placeholder="Nombre Articulo"
-        value="{{ isset($articulo->nombreArticulo)?$articulo->nombreArticulo:old('nombreArticulo') }}"
+    <label for="codigo" class="form-label">Codigo</label>
+    <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Codigo"
+        value="{{ isset($articulo->codigo)?$articulo->codigo:old('codigo') }}"
     >
 </div>
 <div class="col-md-4">
-    <label for="tipoArticulo" class="form-label">Clase articulo</label>
-    <select class="form-select" aria-label="Default select example" name="claseArticulo" >
-        <option selected> {{ isset($articulo->claseArticulo)?$articulo->claseArticulo:old('claseArticulo') }}</option>
-        <option value="Herramienta">Herramienta</option>
-        <option value="Equipo">Equipo</option>
-    </select>
+    <label for="objeto" class="form-label">Objeto</label>
+    <input type="text" class="form-control" name="objeto" id="objeto" placeholder="Objeto"
+        value="{{ isset($articulo->objeto)?$articulo->objeto:old('objeto') }}"
+    >
 </div>
 <div class="col-md-4">
-    <label for="codigoArticulo" class="form-label">Codigo Articulo</label>
-    <input type="text" class="form-control" name="codigoArticulo"  id="codigoArticulo" placeholder="Eje. 012DES"
-        value="{{ isset($articulo->codigoArticulo)?$articulo->codigoArticulo:old('codigoArticulo') }}">
+    <label for="descripcion" class="form-label">Descripcion</label>
+    <input type="text" class="form-control" name="descripcion"  id="descripcion" placeholder="de 8'"
+        value="{{ isset($articulo->descripcion)?$articulo->descripcion:old('descripcion') }}">
 </div>
-<div class="col-4">
-    <label for="herramienta" class="form-label">Herramienta o Equipo</label>
-    <input type="text" class="form-control" name="herramienta" id="herramienta" placeholder="Eje. Desarmador - Martillo - Alicate"
-        value="{{ isset($articulo->herramienta)?$articulo->herramienta:old('herramienta') }}">
-</div>
-<div class="col-4">
-    <label for="marca" class="form-label">Marca</label>
-    <input type="text" class="form-control" name="marca" id="marca" placeholder="Stanley"
-        value="{{ isset($articulo->marca)?$articulo->marca:old('marca') }}">
-</div>
-<div class="col-4">
-    <label for="tipoArticulo" class="form-label">Tipo Articulo</label>
-    <input type="text" class="form-control" name="tipoArticulo" id="tipoArticulo" placeholder="Eje. Plano/Cruz, Electrico/Analogico"
-        value="{{ isset($articulo->tipoArticulo)?$articulo->tipoArticulo:old('tipoArticulo') }}">
-</div>
-
-<div class="col-auto">
-    <label for="codigoArticulo" class="form-label">Cantidad</label>
-    <input type="cantidad" class="form-control" name="cantidad"  id="cantidad" placeholder="Eje. 15"
+<div class="col-md-4">
+    <label for="cantidad" class="form-label">Cantidad</label>
+    <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="cantidad"
         value="{{ isset($articulo->cantidad)?$articulo->cantidad:old('cantidad') }}">
 </div>
-<div class="col-4">
-    <label for="imagen" class="form-label">Imagen</label>
-    <input type="file" name="imagen" class="form-control" id="imagen"  >
-    <br>
-    @if(isset($articulo->imagen))
-    <img src="{{ asset('storage') . '/' . $articulo->imagen }}" alt="imagen" width="250">
-    @endif
+<div class="col-md-4">
+    <label for="fecha" class="form-label">fecha</label>
+    <input type="text" class="form-control" name="fecha"  id="fecha" placeholder="fecha"
+        value="{{ isset($articulo->fecha)?$articulo->fecha:old('fecha') }}">
 </div>
 <div class="col-12">
 <button type="submit" class="btn btn-primary" value="Enviar">Enviar</button>

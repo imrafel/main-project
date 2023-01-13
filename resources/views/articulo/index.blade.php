@@ -12,7 +12,7 @@
 
         <div class="row">
             <div class="col">
-                <a class="btn btn-success" href="{{ url('/articulo/create') }}">Agregar Materia</a>
+                <a class="btn btn-success" href="{{ url('/articulo/create') }}">Agregar Articulo</a>
             </div>
             <div class="col col-lg-2">
                 <form action="">
@@ -28,11 +28,11 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Descripcion General</th>
-                        <th scope="col">Herramienta</th>
-                        <th scope="col">Tipo Articulo</th>
-                        <th scope="col">Codigo Articulo</th>
-                        <th scope="col">En Stock</th>
+                        <th scope="col">Codigo</th>
+                        <th scope="col">Objeto</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Fecha</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
@@ -40,11 +40,11 @@
                     @foreach ($articulos as $dato)
                         <tr>
                             <td>{{ $dato->id }}</td>
-                            <td>{{ $dato->nombreArticulo }}</td>
-                            <td>{{ $dato->herramienta }}</td>
-                            <td>{{ $dato->tipoArticulo }}</td>
-                            <td>{{ $dato->codigoArticulo }}</td>
+                            <td>{{ $dato->codigo }}</td>
+                            <td>{{ $dato->objeto }}</td>
+                            <td>{{ $dato->descripcion }}</td>
                             <td>{{ $dato->cantidad }}</td>
+                            <td>{{ $dato->fecha }}</td>
                             <td>
                                 <form action="{{ url('/articulo/' . $dato->id) }}" method="POST">
                                     @csrf

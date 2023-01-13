@@ -28,6 +28,7 @@ class CreatePrestamosTable extends Migration
             $table->tinyInteger('gerencia')->nullable();
             $table->tinyInteger('bodega')->nullable();
             $table->tinyInteger('compra')->nullable();
+            $table->string('finalizado')->default('abierto');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

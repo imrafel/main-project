@@ -4,7 +4,7 @@
             <select wire:model.lazy="articulo" class="form-select">
                 <option value=''>Escoge una herramienta</option>
                 @foreach ($articulos as $articulo)
-                <option value="{{ $articulo->id }}">{{ $articulo->nombreArticulo }}</option>
+                <option value="{{ $articulo->id }}">{{ $articulo->objeto }}</option>
                 @endforeach
             </select>
         </div>
@@ -27,9 +27,16 @@
             </div>
         </tr>
         <tr>
-            <div class="col-4">
+            <div class="col-2">
                 @foreach ($herramientas as $herramienta)
                 <input name="herramientas[]" type="text" class="form-control" value="{{ $herramienta }}" readonly>
+                @endforeach
+            </div>
+        </tr>
+        <tr>
+            <div class="col-3">
+                @foreach ($descripciones as $des)
+                <input name="descripciones[]" type="text" class="form-control" value="{{ $des }}" readonly>
                 @endforeach
             </div>
         </tr>

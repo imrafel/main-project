@@ -19,6 +19,8 @@ class CreateDetallePrestamosTable extends Migration
             $table->bigInteger('articulo_id')->unsigned();
             $table->integer('cantidad');
             $table->string('herramienta');
+            $table->string('descripcion');
+            $table->string('observacio')->nullable();
             $table->timestamps();
 
             $table->foreign('prestamo_id')->references('id')->on('prestamos')->onDelete('cascade');

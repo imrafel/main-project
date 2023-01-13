@@ -23,7 +23,13 @@ class PrestamoController extends Controller
         $user = auth()->user()['role'];
         //
         if ($user == 'admin' || $user == 'secretario' || $user == 'bodega') {
-            $prestamos = Prestamo::all();
+            $prestamo = request()->get('prestamo');
+            $buscarPor = request()->get('buscarPor');
+            if (!$prestamo) {
+                $prestamos = Prestamo::where('finalizado', '=', 'abierto')->get();
+            } else {
+                $prestamos = Prestamo::where($buscarPor, '=', $prestamo)->get();
+            }
         } else {
             $id = auth()->id();
 
@@ -47,7 +53,6 @@ class PrestamoController extends Controller
         $user = auth()->user()['name'];
         $articulos = Articulo::all();
 
-
         return view('prestamo.create', compact('hoy', 'user', 'articulos'));
     }
 
@@ -61,9 +66,9 @@ class PrestamoController extends Controller
     {
 
 
+
+
         $campos = [
-            // 'fecha_solicitud' => 'required|date',
-            // 'fecha_practica' => 'required|date',
             'nombreCompleto' => 'required|string|max:100',
             'jornada' => 'required|string|max:100',
             'carrera' => 'required|string|max:100',
@@ -84,7 +89,7 @@ class PrestamoController extends Controller
         $user = Auth::id();
         $datosPrestamo = $request->except('_token');
         $resta = 0;
-
+        $estado = 'abierto';
         // $fechaPractica = date('Y-m-d');
         // $fechaSolicitud = date('Y-m-d');
 
@@ -93,6 +98,7 @@ class PrestamoController extends Controller
         $cantidades = $datosPrestamo['cantidad'];
         $herramientas = $datosPrestamo['herramientas'];
         $idents = $datosPrestamo['idents'];
+        $descripciones = $datosPrestamo['descripciones'];
 
         $prestamo = Prestamo::create([
             'user_id' => $user,
@@ -104,7 +110,8 @@ class PrestamoController extends Controller
             'carrera' => $datosPrestamo['carrera'],
             'grado' => $datosPrestamo['grado'],
             'programa' => $datosPrestamo['programa'],
-            'seccion' => $datosPrestamo['seccion']
+            'seccion' => $datosPrestamo['seccion'],
+            'finalizado' => $estado
         ]);
         $prestamo->save();
 
@@ -117,13 +124,13 @@ class PrestamoController extends Controller
                 'articulo_id' => $idents[$i],
                 'cantidad' => $cantidades[$i],
                 'herramienta' => $herramientas[$i],
+                'descripcion' => $descripciones[$i]
             ]);
             $detallePrestamo->save();
 
-            $stock = Stock::find($idents[$i]);
+            $stock = Articulo::find($idents[$i]);
             $resta = $stock->cantidad - $cantidades[$i];
-            // dd($resta);
-            Stock::where('nombreArticulo', '=', $herramientas[$i])
+            Articulo::where('objeto', '=', $herramientas[$i])
                 ->update(['cantidad' => $resta]);
             // dd($herramientas[$i]);
             // $stock->save();
@@ -158,6 +165,7 @@ class PrestamoController extends Controller
 
         $detalles = detallePrestamo::where('prestamo_id', $id)->get();
 
+
         // dd($detalles);
 
         return view('prestamo.show', compact('prestamo', 'detalles', 'user'));
@@ -188,7 +196,6 @@ class PrestamoController extends Controller
 
         // $prestamo=Prestamo::findOrFail($id);
 
-
         $prestamo = Prestamo::find($id);
         if ($user == 'admin') {
             $prestamo->gerencia = 1;
@@ -207,10 +214,53 @@ class PrestamoController extends Controller
      * @param  \App\Models\Prestamo  $prestamo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
-        Prestamo::destroy($id);
+
+        $datos = $request->except('_token');
+
+        $idents = $datos['id'];
+        $cantidades = $datos['cantidad'];
+        $herramientas = $datos['herramienta'];
+        $entregados = $datos['entregado'];
+
+        // dd($entregados);
+
+        $todo = [];
+
+
+        foreach ($idents as $key => $dato) {
+            $dato = array(
+                'id' => $idents[$key],
+                'cantidad' => $cantidades[$key],
+                'herramienta' => $herramientas[$key],
+                'entregado' => $entregados[$key]
+            );
+            array_push($todo, $dato);
+        }
+
+        $prestamo = detallePrestamo::where('prestamo_id', '=', $id)->get();
+        for ($i = 0, $cuantos = count($prestamo); $i < $cuantos; $i++) {
+            $stock = Articulo::find($prestamo[$i]['articulo_id']);
+            $suma = $stock->cantidad + $prestamo[$i]['cantidad'];
+            $articulo = Articulo::find($prestamo[$i]['articulo_id']);
+
+            if($todo[$i]['entregado'] == 'no'){
+                detallePrestamo::where('prestamo_id', '=', $id)
+                ->update(['observacio' => "El siguiente articulo{$todo[$i]['herramienta']} esta incompleta o rota o extraviada"]);
+                return redirect('/prestamo')->with('mensaje', 'No ha entregado todos los articulos');
+            } else {
+                $articulo->cantidad = $suma;
+                $articulo->save();
+            }
+        }
+
+
+
+        Prestamo::where('id', $id)
+            ->update(['finalizado' => 'cerrado']);
+
+        // Prestamo::destroy($id);
         return redirect('/prestamo');
     }
 }

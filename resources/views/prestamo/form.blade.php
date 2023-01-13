@@ -6,8 +6,6 @@
 @endforeach
 @endif
 
-{{-- <div class="row justify-content-center"> --}}
-    {{-- <form method="post" enctype="text/plain"> --}}
 
         <table border="0">
             <tr height="30">
@@ -98,7 +96,7 @@
                 </div>
             </tr>
             <tr>
-                <form id="detalle_prestamo_form" class="row g-3" action="{{ url('/detalle_prestamo') }}" method="POST">
+                <form id="detalle_prestamo_form" class="row g-3" method="POST">
                     @livewire('disponible')
                 </form>
             </tr>
@@ -117,36 +115,6 @@
 
 
 <script type="text/javascript">
-    // agregar registro
-    $("#addRow").click(function() {
-        var html = '';
-        html += '<div class="row g-3" id="inputFormRow">'
-        html += '<p>'
-        html += '<div class="col">'
-        html +=
-            '<input type="text" class="form-control" placeholder="Herramienta" aria-label="Last name" name="herramientas[]">'
-        html += '</div>'
-        html += '<div class="col">'
-        html +=
-            '<input type="text" class="form-control" placeholder="Descripcion" aria-label="Last name" name="descripcion[]" >'
-        html += '</div>'
-        html += '<div class="col-auto">'
-        html +=
-            '<input type="number" class="form-control" placeholder="Cantidad" aria-label="First name" name="cantidad[]" >'
-        html += '</div>'
-        html += '<div class="col-auto">'
-        html += '<input type="button" class="btn btn-danger" id="removeRow" value="Eliminar" >'
-        html += '</div>'
-        html += '</div>'
-
-        $('#newRow').append(html);
-    });
-
-    // borrar registro
-    $(document).on('click', '#removeRow', function() {
-        $(this).closest('#inputFormRow').remove();
-    });
-
 
     function enviaDatos() {
         document.prestamo_form.submit();
