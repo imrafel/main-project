@@ -45,11 +45,7 @@
                         <td>{{ date("d-m-Y", strtotime($dato->fecha_solicitud)) }}</td>
                         <td>{{ date("d-m-Y", strtotime($dato->fecha_practica)) }}</td>
                         <td>{{ $dato->programa }}</td>
-                        @if($dato->finalizado == 1)
-                        <td>Cerrado</td>
-                        @else
-                        <td>Abierto</td>
-                        @endif
+                        <td>{{ $dato->finalizado }}</td>
                         <td>
                             <form action="{{ url('/prestamo/' . $dato->id) }}" method="POST">
                                 @csrf

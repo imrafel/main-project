@@ -55,7 +55,7 @@
                             {{-- <td>{{ $detalle->id }}</td>
                             <td>{{ $detalle->cantidad }}</td>
                             <td>{{ $detalle->herramienta }}</td> --}}
-                            <td><input type="text" value="{{ $detalle->id }}" class="form-control" name="id[]">
+                            <td><input type="text" value="{{ $detalle->articulo_id }}" class="form-control" name="id[]">
                             </td>
                             <td><input type="text" value="{{ $detalle->cantidad }}" class="form-control"
                                     name="cantidad[]">
@@ -76,11 +76,12 @@
                                     </label>
                                 </div>
                             </td>
-                            <td><input type="text" value="{{ $detalle->observacio }}" class="form-control" readonly></td>
+                            <td><input type="text" value="{{ $detalle->observacio }}" class="form-control" readonly>
+                            </td>
                         </tr>
                         @endforeach
+                        <input type="submit" value="enviar">
                     </tbody>
-                    <input type="submit" value="enviar">
                 </form>
 
             </table>
