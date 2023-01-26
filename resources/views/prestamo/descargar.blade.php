@@ -1,51 +1,49 @@
 <?php
-header("Content-type: application/vnd.ms-excel; name='excel'; charset=utf-8");
-header('Content-Disposition: attachment; filename=detalle_solicitud.xls');
+$fecha=date('d_m_Y');
 header('Pragma: no-cache');
 header('Expires: 0');
-header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-header('Cache-Control: private', false);
+header('Content-Transfer-Encoding: none');
+header('Content-type: application/vnd.ms-excel;charset=utf-8');// 
+header("Content-Disposition: attachment; filename=Reporte_$fecha.xls");
 
 
+echo '<table class="table">';
+echo "<tr>";
+echo "<td><b>Fecha de Solicitud</b> &nbsp; &nbsp;  $prestamo->fecha_solicitud  </td>";
+echo "<td><b>Fecha de Practica</b> &nbsp;&nbsp; $prestamo->fecha_practica </td>";
+echo "</tr>";
+echo "<tr>";
+echo "<td><b>Nombre Completo</b> &nbsp;&nbsp;  $prestamo->nombreCompleto </td>";
+echo "<td><b>Carne</b> &nbsp;&nbsp; $prestamo->carne </td>";
+echo "</tr>";
+echo "<tr>";
+echo "<td><b>Jornada</b> &nbsp;&nbsp; $prestamo->jornada </td>";
+echo "<td><b>Carrera</b> &nbsp;&nbsp; $prestamo->carrera</td>";
 
-
-<table class="table">
-    <tr>
-        <td><b>Fecha de Solicitud</b> &nbsp; &nbsp; {{ $prestamo->fecha_solicitud }} </td>
-        <td><b>Fecha de Practica</b> &nbsp;&nbsp;{{ $prestamo->fecha_practica }}</td>
-    </tr>
-    <tr>
-        <td><b>Nombre Completo</b> &nbsp;&nbsp; {{ $prestamo->nombreCompleto }}</td>
-        <td><b>Carne</b> &nbsp;&nbsp;{{ $prestamo->carne }}</td>
-    </tr>
-    <tr>
-        <td><b>Jornada</b> &nbsp;&nbsp;{{ $prestamo->jornada }}</td>
-        <td><b>Carrera</b> &nbsp;&nbsp;{{ $prestamo->carrera }}</td>
-
-    </tr>
-    <tr>
-        <td><b>Programa</b> &nbsp;&nbsp; {{ $prestamo->programa }}</td>
-        <td>
-            <b>Grado </b>&nbsp;{{ $prestamo->grado }} &nbsp; - &nbsp;
-            <b>Seccion</b> &nbsp; {{ $prestamo->seccion }}
-        </td>
-    </tr>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Herramienta</th>
-                <th scope="col">Descripcion</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($detalles as $key => $detalle)
-                <tr>
-                    <td>{{ $detalle->cantidad }}</td>
-                    <td>{{ $detalle->herramienta }}</td>
-                    <td>{{ $detalle->descripcion }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</table>
+echo "</tr>";
+echo "<tr>";
+echo "<td><b>Programa</b> &nbsp;&nbsp;  $prestamo->programa </td>";
+echo "<td>";
+echo "<b>Grado </b>&nbsp; $prestamo->grado  &nbsp; - &nbsp;";
+echo "<b>Seccion</b> &nbsp;  $prestamo->seccion ";
+echo "</td>";
+echo "</tr>";
+echo '<table class="table">';
+echo "<thead>";
+echo "<tr>";
+echo "<th >Cantidad</th>";
+echo "<th >Herramienta</th>";
+echo "<th >Descripcion</th>";
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
+foreach ($detalles as $key => $detalle) {
+echo "<tr>";
+echo "<td> $detalle->cantidad </td>";
+echo "<td>$detalle->herramienta </td>";
+echo "<td> $detalle->descripcion </td>";
+echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
+echo "</table>";

@@ -39,6 +39,8 @@ Route::resource('articulo', ArticuloController::class)->middleware('auth', 'role
 //Ruta a todo el controller de Prestamo, con verificacion al login
 Route::resource('prestamo', PrestamoController::class)->middleware('auth');
 
+Route::get('prestamo/{prestamo}/descargar', [App\Http\Controllers\PrestamoController::class, 'descargar'])->name('prestamo.descargar');
+
 Route::resource('detalle_prestamo', DetallePrestamoController::class)->middleware('auth');
 
 //Quitamos del login, las opciones de registrar usuario y cambiar la contrase;a
