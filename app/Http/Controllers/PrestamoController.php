@@ -80,7 +80,8 @@ class PrestamoController extends Controller
             'programa' => 'required|string|max:100',
             'seccion' => 'required|string|max:100',
             'cantidad' => 'required',
-            'herramientas' => 'required'
+            'herramientas' => 'required',
+            
         ];
 
         $mensaje = [
@@ -218,10 +219,13 @@ class PrestamoController extends Controller
 
         $datos = $request->except('_token');
 
+        // dd($datos);
+
         $idents = $datos['id'];
         $cantidades = $datos['cantidad'];
         $herramientas = $datos['herramienta'];
         $entregados = $datos['entregado'];
+        $observaciones = $datos['observacion'];
         $hayNo = 0;
 
         $todo = [];
@@ -231,43 +235,49 @@ class PrestamoController extends Controller
                 'id' => $idents[$key],
                 'cantidad' => $cantidades[$key],
                 'herramienta' => $herramientas[$key],
-                'entregado' => $entregados[$key]
+                'entregado' => $entregados[$key],
+                'observacion' => $observaciones[$key]
             );
             array_push($todo, $dato);
         }
 
+        // dd($todo);
+
 
         $prestamo = detallePrestamo::where('prestamo_id', '=', $id)->get();
         for ($i = 0, $cuantos = count($prestamo); $i < $cuantos; $i++) {
-            
+
             $stock = Articulo::find($prestamo[$i]['articulo_id']);
             $suma = $stock->cantidad + $prestamo[$i]['cantidad'];
             $articulo = Articulo::find($prestamo[$i]['articulo_id']);
 
             if ($todo[$i]['entregado'] == 'no') {
                 detallePrestamo::where('articulo_id', $todo[$i]['id'])
-                    ->update(['observacio' => 'falta']);
-                $hayNo ++;
+                    ->where('prestamo_id', '=', $id)
+                    ->update(['observacion' => $todo[$i]['observacion']]);
+                detallePrestamo::where('articulo_id', $todo[$i]['id'])
+                    ->update(['entregado' => $todo[$i]['entregado']]);
+                $hayNo++;
             } else {
                 detallePrestamo::where('articulo_id', $todo[$i]['id'])
-                    ->update(['observacio' => 'completo']);
-                $articulo->cantidad = $suma;
-                $articulo->save();
+                    ->where('prestamo_id', '=', $id)
+                    ->update(['observacion' => $todo[$i]['observacion']]);
+                detallePrestamo::where('articulo_id', $todo[$i]['id'])
+                    ->update(['entregado' => $todo[$i]['entregado']]);
+                if($articulo->cantidad < $articulo->total ){
+                    $articulo->cantidad = $suma;
+                    $articulo->save();
+                }
             }
         }
 
 
-        if($hayNo == 0) {
+        if ($hayNo == 0) {
             Prestamo::where('id', $id)
-            ->update(['finalizado' => 'cerrado']);
+                ->update(['finalizado' => 'cerrado']);
             return redirect('/prestamo');
         } else {
             return redirect('/prestamo');
         }
-
-        
-            
-        
-
     }
 }

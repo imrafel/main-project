@@ -52,31 +52,26 @@
                     <tbody>
                         @foreach ($detalles as $key => $detalle)
                         <tr>
-                            {{-- <td>{{ $detalle->id }}</td>
-                            <td>{{ $detalle->cantidad }}</td>
-                            <td>{{ $detalle->herramienta }}</td> --}}
                             <td><input type="text" value="{{ $detalle->articulo_id }}" class="form-control" name="id[]">
                             </td>
-                            <td><input type="text" value="{{ $detalle->cantidad }}" class="form-control"
-                                    name="cantidad[]">
+                            <td><input type="text" value="{{ $detalle->cantidad }}" class="form-control" name="cantidad[]">
                             </td>
-                            <td><input type="text" value="{{ $detalle->herramienta }}" class="form-control"
-                                    name="herramienta[]"></td>
+                            <td><input type="text" value="{{ $detalle->herramienta }}" class="form-control" name="herramienta[]">
+                            </td>
                             <td>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="entregado[]" value="si">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="entregado[]" value="no">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        No
-                                    </label>
-                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="entregado[{{ $key }}]" id="inlineRadio1" value="si" 
+                                    {{ ($detalle->entregado=="si")? "checked" : "" }} >
+                                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="entregado[{{ $key }}]" id="inlineRadio2" value="no"
+                                    {{ ($detalle->entregado=="no")? "checked" : "" }} >
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                  </div>
                             </td>
-                            <td><input type="text" value="{{ $detalle->observacio }}" class="form-control" readonly>
+                            <td>
+                                <input type="text" name="observacion[]" value="{{ $detalle->observacion }}" class="form-control">
                             </td>
                         </tr>
                         @endforeach

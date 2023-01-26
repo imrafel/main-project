@@ -32,6 +32,7 @@
                         <th scope="col">Objeto</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Opciones</th>
                     </tr>
@@ -44,6 +45,7 @@
                             <td>{{ $dato->objeto }}</td>
                             <td>{{ $dato->descripcion }}</td>
                             <td>{{ $dato->cantidad }}</td>
+                            <td>{{ $dato->total }}</td>
                             <td>{{ $dato->fecha }}</td>
                             <td>
                                 <form action="{{ url('/articulo/' . $dato->id) }}" method="POST">

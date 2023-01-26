@@ -10,7 +10,6 @@ class detallePrestamo extends Model
     use HasFactory;
 
 
-    
     protected $fillable = [
         'prestamo_id',
         'articulo_id',

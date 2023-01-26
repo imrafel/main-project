@@ -64,8 +64,18 @@ class ArticuloController extends Controller
         $this->validate($request, $campos, $mensaje);
 
         $datosArticulo =  request()->except('_token');
+
+        $articulo = Articulo::create([
+            'codigo' => $datosArticulo['codigo'],
+            'objeto' => $datosArticulo['objeto'],
+            'descripcion' => $datosArticulo['descricion'],
+            'cantidad' => $datosArticulo['cantidad'],
+            'total' => $datosArticulo['cantidad'],
+            'fecha' => $datosArticulo['fecha']
+        ]);
+        $articulo->save();
         
-        Articulo::insert($datosArticulo);
+        // Articulo::insert($datosArticulo);
         return redirect('/articulo')->with('mensaje', 'Articulo Agregado con Exito');
 
     }

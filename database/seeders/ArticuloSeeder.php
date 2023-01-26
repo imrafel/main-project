@@ -19,28 +19,32 @@ class ArticuloSeeder extends Seeder
             'objeto' => 'pelotas',
             'descripcion' => 'de futbol',
             'fecha' => '1-12-12',
-            'cantidad' => '10'
+            'cantidad' => '10',
+            'total' => '10'
         ]);
         DB::table('articulos')->insert([
             'codigo' => '2',
             'objeto' => 'gorras',
             'descripcion' => 'baseball',
             'fecha' => '1-12-12',
-            'cantidad' => '10'
+            'cantidad' => '10',
+            'total' => '10'
         ]);
         DB::table('articulos')->insert([
             'codigo' => '3',
             'objeto' => 'redes',
             'descripcion' => 'porterias de futbol',
             'fecha' => '1-12-12',
-            'cantidad' => '10'
+            'cantidad' => '10',
+            'total' => '10'
         ]);
         DB::table('articulos')->insert([
             'codigo' => '4',
             'objeto' => 'bates de madera',
             'descripcion' => 'baseball',
             'fecha' => '1-12-12',
-            'cantidad' => '10'
+            'cantidad' => '10',
+            'total' => '10'
         ]);
     }
 }

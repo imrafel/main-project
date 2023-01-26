@@ -20,6 +20,7 @@ class CreateArticulosTable extends Migration
             $table->string('descripcion');
             $table->string('fecha');
             $table->integer('cantidad');
+            $table->integer('total');
 
             $table->timestamps();
         });

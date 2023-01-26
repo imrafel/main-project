@@ -11,14 +11,12 @@ class Articulo extends Model
 
 
     protected $fillable = [
-        'nombreArticulo',
-        'claseArticulo',
-        'herramienta',
-        'marca',
-        'tipoArticulo',
-        'codigoArticulo',
+        'codigo',
+        'objeto',
+        'descripcion',
         'cantidad',
-        'imagen'
+        'total',
+        'fecha',
 
     ];
 }
