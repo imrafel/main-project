@@ -1,0 +1,272 @@
+<script type="text/javascript">
+    function enviarforms() {
+        document.f1.submit();
+        document.f2.submit();
+
+    }
+</script>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.0.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="JsxK8SmvSXOvE0QBHcRkQRVkDlVYVLVhOjILnpHX">
+
+    <title>Laravel</title>
+
+    <!-- Scripts -->
+    <script src="http://localhost:8080/main-project/public/js/app.js"></script>
+    
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+
+    <!-- Styles -->
+    <link href="http://localhost:8080/main-project/public/css/app.css" rel="stylesheet">
+    <!-- Livewire Styles -->
+<style >
+    [wire\:loading], [wire\:loading\.delay], [wire\:loading\.inline-block], [wire\:loading\.inline], [wire\:loading\.block], [wire\:loading\.flex], [wire\:loading\.table], [wire\:loading\.grid], [wire\:loading\.inline-flex] {
+        display: none;
+    }
+
+    [wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short], [wire\:loading\.delay\.long], [wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest] {
+        display:none;
+    }
+
+    [wire\:offline] {
+        display: none;
+    }
+
+    [wire\:dirty]:not(textarea):not(input):not(select) {
+        display: none;
+    }
+
+    input:-webkit-autofill, select:-webkit-autofill, textarea:-webkit-autofill {
+        animation-duration: 50000s;
+        animation-name: livewireautofill;
+    }
+
+    @keyframes livewireautofill { from {} }
+</style>
+</head>
+<body>
+    
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="http://localhost:8080/main-project/public/home">
+                    Kinal
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Authentication Links -->
+                                                    <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    admin
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="http://localhost:8080/main-project/public/logout"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="http://localhost:8080/main-project/public/logout" method="POST" class="d-none">
+                                        <input type="hidden" name="_token" value="JsxK8SmvSXOvE0QBHcRkQRVkDlVYVLVhOjILnpHX">                                    </form>
+                                </div>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main class="py-4">
+            <div class="container">
+    <div class="col-12">
+        <a class="btn btn-danger" href="http://localhost:8080/main-project/public/prestamo">Regresar</a>
+        <a class="btn btn-warning" href="http://localhost:8080/main-project/public/prestamo/1/export">Descargar con LIB</a>
+    </div>
+    <div>
+    </div>
+    <br>
+    <h4>BODEGA KINAL</h4>
+    <h5>VALE DE PRESTAMO DE HERRAMIENTA, EQUIPO, ETC.
+    </h5>
+    <br>
+    <div>
+        <table class="table">
+            <tr>
+                <td><b>Fecha de Solicitud</b> &nbsp; &nbsp; 27-01-2023
+                </td>
+                <td><b>Fecha de Practica</b> &nbsp;&nbsp;02-02-2023
+                </td>
+            </tr>
+            <tr>
+                <td><b>Nombre Completo</b> &nbsp;&nbsp; admin</td>
+                <td><b>Carne</b> &nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td><b>Jornada</b> &nbsp;&nbsp;Matutina</td>
+                <td><b>Carrera</b> &nbsp;&nbsp;Mecanica Automotriz</td>
+
+            </tr>
+            <tr>
+                <td><b>Programa</b> &nbsp;&nbsp; ETS</td>
+                <td>
+                    <b>Grado </b>&nbsp;1 &nbsp; - &nbsp;
+                    <b>Seccion</b> &nbsp; B
+                </td>
+            </tr>
+            <table class="table" me>
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Herramienta</th>
+                        <th scope="col">Completo</th>
+                        <th scope="col">Observaciones</th>
+                    </tr>
+                </thead>
+                <form action="" method="POST">
+                    <input type="hidden" name="_token" value="JsxK8SmvSXOvE0QBHcRkQRVkDlVYVLVhOjILnpHX">                    <input type="hidden" name="_method" value="DELETE">
+                    <tbody>
+                                                <tr>
+                            <td><input type="text" value="1" class="form-control" name="id[]">
+                            </td>
+                            <td><input type="text" value="5" class="form-control" name="cantidad[]">
+                            </td>
+                            <td><input type="text" value="pelotas" class="form-control" name="herramienta[]">
+                            </td>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="entregado[0]" id="inlineRadio1" value="si" 
+                                    checked >
+                                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="entregado[0]" id="inlineRadio2" value="no"
+                                     >
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                  </div>
+                            </td>
+                            <td>
+                                <input type="text" name="observacion[]" value="non" class="form-control">
+                            </td>
+                        </tr>
+                                                <tr>
+                            <td><input type="text" value="2" class="form-control" name="id[]">
+                            </td>
+                            <td><input type="text" value="5" class="form-control" name="cantidad[]">
+                            </td>
+                            <td><input type="text" value="gorras" class="form-control" name="herramienta[]">
+                            </td>
+                            <td>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="entregado[1]" id="inlineRadio1" value="si" 
+                                     >
+                                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="entregado[1]" id="inlineRadio2" value="no"
+                                    checked >
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                  </div>
+                            </td>
+                            <td>
+                                <input type="text" name="observacion[]" value="faltan 2 gorras" class="form-control">
+                            </td>
+                        </tr>
+                                                <input type="submit" value="enviar">
+                    </tbody>
+                </form>
+
+            </table>
+        </table>
+        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1">
+                        <label class="form-check-label" for="inlineCheckbox1">Gerencia</label>
+        </div>
+        <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1">
+                        <label class="form-check-label" for="inlineCheckbox2">Bodega</label>
+        </div>
+    </div>
+    <br>
+        <form action="http://localhost:8080/main-project/public/prestamo/1" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="JsxK8SmvSXOvE0QBHcRkQRVkDlVYVLVhOjILnpHX">        <input type="hidden" name="_method" value="PATCH">
+        <button type="submit" class="btn btn-success">Aprobar</button>
+    </form>
+        
+</div>
+        </main>
+    </div>
+    <!-- Livewire Scripts -->
+
+<script src="http://localhost:8080/main-project/public/vendor/livewire/livewire.js?id=de3fca26689cb5a39af4" data-turbo-eval="false" data-turbolinks-eval="false" ></script>
+<script data-turbo-eval="false" data-turbolinks-eval="false" >
+    if (window.livewire) {
+	    console.warn('Livewire: It looks like Livewire\'s @livewireScripts JavaScript assets have already been loaded. Make sure you aren\'t loading them twice.')
+	}
+
+    window.livewire = new Livewire();
+    window.livewire.devTools(true);
+    window.Livewire = window.livewire;
+    window.livewire_app_url = 'http://localhost:8080/main-project/public';
+    window.livewire_token = 'JsxK8SmvSXOvE0QBHcRkQRVkDlVYVLVhOjILnpHX';
+
+	/* Make sure Livewire loads first. */
+	if (window.Alpine) {
+	    /* Defer showing the warning so it doesn't get buried under downstream errors. */
+	    document.addEventListener("DOMContentLoaded", function () {
+	        setTimeout(function() {
+	            console.warn("Livewire: It looks like AlpineJS has already been loaded. Make sure Livewire\'s scripts are loaded before Alpine.\\n\\n Reference docs for more info: http://laravel-livewire.com/docs/alpine-js")
+	        })
+	    });
+	}
+
+	/* Make Alpine wait until Livewire is finished rendering to do its thing. */
+    window.deferLoadingAlpine = function (callback) {
+        window.addEventListener('livewire:load', function () {
+            callback();
+        });
+    };
+
+    let started = false;
+
+    window.addEventListener('alpine:initializing', function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (! started) {
+            window.livewire.start();
+
+            started = true;
+        }
+    });
+</script>
+</body>
+</html>

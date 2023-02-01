@@ -56,6 +56,7 @@
                                 @endif
                                     <a class="btn btn-primary" href="{{ url('/prestamo/' . $dato->id) }}">Detalle</a>
                                     <a class="btn btn-warning" href="{{ url('/prestamo/' . $dato->id . '/descargar') }}">Descargar</a>
+                                    
                             </form>
 
                         </td>

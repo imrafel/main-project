@@ -27,6 +27,8 @@ Route::get('/', function () {
 //     return view('articulo.index');
 // });
 
+Route::get('prestamo/{prestamo}/export', [PrestamoController::class, 'export']);
+
 //Ruta para el controller de Material y equipo con verificacoin al login
 Route::resource('material', MaterialYEquipoController::class)->middleware('auth');
 
@@ -39,9 +41,12 @@ Route::resource('articulo', ArticuloController::class)->middleware('auth', 'role
 //Ruta a todo el controller de Prestamo, con verificacion al login
 Route::resource('prestamo', PrestamoController::class)->middleware('auth');
 
-Route::get('prestamo/{prestamo}/descargar', [App\Http\Controllers\PrestamoController::class, 'descargar'])->name('prestamo.descargar');
+Route::get('prestamo/{prestamo}/pdf', [PrestamoController::class, 'pdf']);
 
 Route::resource('detalle_prestamo', DetallePrestamoController::class)->middleware('auth');
+
+
+
 
 //Quitamos del login, las opciones de registrar usuario y cambiar la contrase;a
 
@@ -56,3 +61,4 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 Route::resource('user', UserController::class)->middleware('auth', 'role');
+

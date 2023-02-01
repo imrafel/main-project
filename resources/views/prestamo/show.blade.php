@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <div class="col-12">
-        <a class="btn btn-danger" href="{{ url('/prestamo') }}">Regresar</a>
+        <a class="btn btn-warning" href="{{ url('/prestamo') }}">Regresar</a>
+        <a class="btn btn-success" href="{{ url('prestamo/' . $prestamo->id . '/export') }}">Descargar XLS</a>
+        <a class="btn btn-danger" href="{{ url('prestamo/' . $prestamo->id . '/pdf') }}">Descargar PDF</a>
     </div>
     <div>
     </div>

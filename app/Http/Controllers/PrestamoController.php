@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PrestamosExport;
 use App\Models\Prestamo;
-use App\Models\User;
-use App\Models\Stock;
 use App\Models\Articulo;
 use App\Models\detallePrestamo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
+
 
 class PrestamoController extends Controller
 {
@@ -37,11 +39,6 @@ class PrestamoController extends Controller
             $prestamos = Prestamo::where('user_id', $id)->get();
         }
 
-
-
-
-
-
         return view('prestamo.index', compact('prestamos', 'user'));
     }
 
@@ -68,10 +65,6 @@ class PrestamoController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-
         $campos = [
             'nombreCompleto' => 'required|string|max:100',
             'jornada' => 'required|string|max:100',
@@ -141,14 +134,7 @@ class PrestamoController extends Controller
         return redirect('/prestamo');
     }
 
-    public function descargar($id)
-    {
-        $prestamo = Prestamo::findOrFail($id);
 
-        $detalles = detallePrestamo::where('prestamo_id', $id)->get();
-
-        return view('prestamo.descargar', compact('prestamo', 'detalles'));
-    }
 
     /**
      * Display the specified resource.
@@ -169,6 +155,26 @@ class PrestamoController extends Controller
         // dd($detalles);
 
         return view('prestamo.show', compact('prestamo', 'detalles', 'user'));
+    }
+
+    public function export($id) 
+    {
+        $prestamo = Prestamo::findOrFail($id);
+        $detalles = detallePrestamo::where("prestamo_id", $id)->get();
+        return Excel::download(new PrestamosExport($prestamo, $detalles), 'prestamo.xlsx');
+
+    }
+
+    public function pdf ($id){
+        $prestamo = Prestamo::findOrFail($id);
+        $detalles = detallePrestamo::where("prestamo_id", $id)->get();
+
+        // return view('prestamo.pdf', compact('prestamo', 'detalles'));
+
+        $pdf = PDF::loadView('prestamo.pdf', ['prestamo' => $prestamo, 'detalles' => $detalles]);
+        return $pdf->stream();
+
+
     }
 
     /**
